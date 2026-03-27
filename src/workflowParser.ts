@@ -73,19 +73,26 @@ export class WorkflowParser {
         newVersion: string, 
         newCommit: string
     ): string {
-        // Skip if has skip-pinning comment
         if (action.hasSkipPinning) {
             return action.original;
         }
 
-        // Format: uses: repo@commit # tag version
-        const standardizedComment = `tag ${newVersion}`;
+        const extractedVersion = this.extractVersionFromComment(action.currentComment);
         const isDashFormat = action.original.includes('- uses:');
         
-        if (isDashFormat) {
-            return `${action.indentation}- uses: ${action.fullPath}@${newCommit} # ${standardizedComment}`;
+        let comment: string;
+        if (!action.currentComment) {
+            comment = ` # ${newVersion}`;
+        } else if (extractedVersion) {
+            comment = ` # ${newVersion}`;
         } else {
-            return `${action.indentation}uses: ${action.fullPath}@${newCommit} # ${standardizedComment}`;
+            comment = action.currentComment ? ` # ${action.currentComment}` : '';
+        }
+        
+        if (isDashFormat) {
+            return `${action.indentation}- uses: ${action.fullPath}@${newCommit}${comment}`;
+        } else {
+            return `${action.indentation}uses: ${action.fullPath}@${newCommit}${comment}`;
         }
     }
 
@@ -105,8 +112,15 @@ export class WorkflowParser {
     }
 
     static extractVersionFromComment(comment: string): string {
-        // Try to extract version from comment like "tag v1.2.3" or "v1.2.3"
-        const versionMatch = comment.match(/(?:tag\s+)?(v?\d+\.\d+\.\d+(?:[.-]\w+)*)/i);
+        const trimmed = comment.trimEnd();
+        
+        // Match version at end of comment with various prefixes
+        // Supports dependabot formats: v2.1.0, 2.1.0, @v2.1.0, pin @v2.1.0, tag=v2.1.0, #v2.1.0
+        // Also supports old extension format: tag v1.2.3
+        // Ignores comments with text after the version
+        const versionMatch = trimmed.match(
+            /(?:tag\s+|tag=|pin\s*@?|@?)?(v?\d+(?:\.\d+)+(?:[._-][\w]+)*)\s*$/
+        );
         return versionMatch ? versionMatch[1] : '';
     }
 
