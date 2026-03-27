@@ -62,8 +62,8 @@ To prevent an action from being updated, add a `# skip-pinning` comment:
 
 **After:**
 ```yaml
-- uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # tag v4.2.2
-- uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # tag v4.0.0
+- uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+- uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4.0.0
 ```
 
 ## Requirements
