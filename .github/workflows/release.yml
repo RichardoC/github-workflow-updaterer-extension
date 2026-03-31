@@ -19,6 +19,8 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm install
+      - name: Run Tests
+        run: npm run pretest && npm test
       - name: Set package.json version
         run: npm version ${{github.ref_name}} --no-git-tag-version
       - name: Install VSCE
