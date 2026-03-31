@@ -53,7 +53,9 @@
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node --test test/*.test.js"
   },
   "devDependencies": {
     "@types/node": "16.x",

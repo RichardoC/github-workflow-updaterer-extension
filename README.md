@@ -127,6 +127,11 @@ This extension enhances security by:
 npm test
 ```
 
+The test suite is offline by design:
+- it uses Node's built-in test runner, so no extra test framework is required
+- it reads the local `test-workflow.yml` fixture and uses mocked update metadata
+- it does not call the GitHub API, which keeps tests deterministic and avoids leaking tokens or depending on network access
+
 ### Packaging for Distribution
 
 ```bash
