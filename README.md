@@ -1,4 +1,6 @@
-# GitHub Workflow Updater
+# GitHub Workflow Updater - Archive
+
+THIS REPO HAS BEEN DONATED TO OWASP, SEE https://github.com/OWASP/GitHub-Workflow-Updater-Extension/
 
 A VS Code extension that automatically pins GitHub Actions to specific commits for enhanced security.
 
