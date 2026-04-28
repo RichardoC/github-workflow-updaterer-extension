@@ -2,6 +2,12 @@
 
 THIS REPO HAS BEEN DONATED TO OWASP, SEE https://github.com/OWASP/GitHub-Workflow-Updater-Extension/
 
+
+
+-----------------------------------
+
+
+
 A VS Code extension that automatically pins GitHub Actions to specific commits for enhanced security.
 
 > **⚠️ Experimental Project**: This extension is entirely experimental and was written by Claude Code. Use at your own discretion.
